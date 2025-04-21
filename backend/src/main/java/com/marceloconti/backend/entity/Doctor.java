@@ -1,14 +1,14 @@
 package com.marceloconti.backend.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "doctors", indexes = {
@@ -41,4 +41,7 @@ public class Doctor extends BaseEntity {
     private String phoneNumber;
 
     private String hospital;
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MedicalRecord> medicalRecords = new ArrayList<>();
 }
